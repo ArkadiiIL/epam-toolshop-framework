@@ -1,5 +1,6 @@
 package com.epam.training.student_arkadii_ilinov.pages;
 
+import com.epam.training.student_arkadii_ilinov.pages.component.Header;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
@@ -20,7 +21,15 @@ public abstract class BasePage {
         PageFactory.initElements(driver, this);
     }
 
+    public Header header() {
+        return new Header(driver);
+    }
+
     protected WebElement clickable(WebElement element) {
         return wait.until(elementToBeClickable(element));
+    }
+
+    protected WebElement visible(WebElement element) {
+        return wait.until(visibilityOf(element));
     }
 }
