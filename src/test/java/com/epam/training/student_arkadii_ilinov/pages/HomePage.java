@@ -1,8 +1,6 @@
 package com.epam.training.student_arkadii_ilinov.pages;
 
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Select;
 
@@ -11,6 +9,7 @@ import java.util.List;
 public class HomePage extends BasePage {
     private static final String HOME_PAGE_URL = "https://practicesoftwaretesting.com/";
     private static final String ARIA_VALUE_NOW = "aria-valuenow";
+    private static final By CHECKBOX_INPUT_BY = By.tagName("input");
     @FindBy(css = "select[data-test='sort']")
     private WebElement sortDropdown;
     @FindBy(css = ".ngx-slider-pointer-max")
@@ -61,5 +60,26 @@ public class HomePage extends BasePage {
 
     private int getIntDomAttribute(WebElement element, String name) {
         return Integer.parseInt(element.getDomAttribute(name));
+    }
+
+    public HomePage setCategorySelected(String name, boolean selected) {
+        WebElement checkBoxInput =
+                findElementByTextInList(categoryCheckBoxList, name).findElement(CHECKBOX_INPUT_BY);
+        if (checkBoxInput.isSelected() != selected) {
+            checkBoxInput.click();
+        }
+        return this;
+    }
+
+    private WebElement findElementByTextInList(List<WebElement> list, String text) {
+        try {
+            return wait.until(ignored ->
+                    list.stream()
+                            .filter(element -> element.getText().strip().equals(text))
+                            .findFirst()
+                            .orElse(null));
+        } catch (TimeoutException e) {
+            throw new NoSuchElementException("Element with text '%s' not found!".formatted(text), e);
+        }
     }
 }
