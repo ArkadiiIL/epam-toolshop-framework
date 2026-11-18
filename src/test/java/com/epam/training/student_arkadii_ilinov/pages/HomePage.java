@@ -16,7 +16,7 @@ public class HomePage extends BasePage {
     private WebElement maxSliderPoint;
     @FindBy(xpath = "//fieldset[legend='Categories']//div[contains(@class, 'checkbox')]")
     private List<WebElement> categoryCheckBoxList;
-    @FindBy(css = "[data-test='filter_completed'] a[data-test^='product-']")
+    @FindBy(css = "[data-test='filter_completed'] a[data-test^='product-'] h5")
     private List<WebElement> filteredProductItemList;
 
     public HomePage(WebDriver driver) {
@@ -58,10 +58,6 @@ public class HomePage extends BasePage {
         return this;
     }
 
-    private int getIntDomAttribute(WebElement element, String name) {
-        return Integer.parseInt(element.getDomAttribute(name));
-    }
-
     public HomePage setCategorySelected(String name, boolean selected) {
         WebElement checkBoxInput =
                 findElementByTextInList(categoryCheckBoxList, name).findElement(CHECKBOX_INPUT_BY);
@@ -69,6 +65,24 @@ public class HomePage extends BasePage {
             checkBoxInput.click();
         }
         return this;
+    }
+
+    public List<String> filteredProductNames() {
+        try {
+            return wait.until(ignored -> {
+                        List<String> list = filteredProductItemList.stream()
+                                .map(WebElement::getText)
+                                .toList();
+                        return list.isEmpty() ? null : list;
+                    }
+            );
+        } catch (TimeoutException e) {
+            throw new NoSuchElementException("No products found after filtering", e);
+        }
+    }
+
+    private int getIntDomAttribute(WebElement element, String name) {
+        return Integer.parseInt(element.getDomAttribute(name));
     }
 
     private WebElement findElementByTextInList(List<WebElement> list, String text) {
