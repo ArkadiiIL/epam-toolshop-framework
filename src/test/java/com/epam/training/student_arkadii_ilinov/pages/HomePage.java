@@ -5,7 +5,6 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Select;
 
 import java.util.List;
-import java.util.Objects;
 
 public class HomePage extends BasePage {
     private static final String HOME_PAGE_URL = "https://practicesoftwaretesting.com/";
@@ -92,10 +91,7 @@ public class HomePage extends BasePage {
     }
 
     private int getIntDomAttribute(WebElement element, String name) {
-        String attributeValue = Objects.requireNonNull(
-                element.getDomAttribute(name),
-                "Attribute '%s' not found".formatted(name));
-        return Integer.parseInt(attributeValue);
+        return Integer.parseInt(getDomAttributeValue(element, name));
     }
 
     private WebElement findElementByTextInList(List<WebElement> list, String text) {

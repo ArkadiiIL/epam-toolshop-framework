@@ -15,6 +15,9 @@ public class Header extends BasePage {
     @FindBy(css = "a[data-test='nav-sign-in']")
     private WebElement signInNav;
 
+    @FindBy(id = "menu")
+    private WebElement userMenu;
+
     public Header(WebDriver driver) {
         super(driver);
     }
@@ -26,5 +29,9 @@ public class Header extends BasePage {
     public LoginPage clickSignIn() {
         clickable(signInNav).click();
         return new LoginPage(driver);
+    }
+
+    public String getUserName() {
+        return visible(userMenu).getText().strip();
     }
 }

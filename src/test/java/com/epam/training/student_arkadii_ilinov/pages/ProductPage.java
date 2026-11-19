@@ -7,6 +7,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 public class ProductPage extends BasePage {
+    private static final String URL_PATH = "/product/";
+
     @FindBy(css = "input[data-test='quantity']")
     private WebElement quantityField;
 
@@ -18,6 +20,7 @@ public class ProductPage extends BasePage {
 
     public ProductPage(WebDriver driver) {
         super(driver);
+        waitForUrl(URL_PATH);
     }
 
     public ProductPage setQuantity(int quantity) {

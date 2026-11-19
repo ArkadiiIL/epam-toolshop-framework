@@ -4,10 +4,11 @@ import com.epam.training.student_arkadii_ilinov.data.User;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 
 public class RegisterPage extends BasePage {
+    private static final String URL_PATH = "auth/register";
+
     @FindBy(id = "first_name")
     private WebElement firstNameField;
 
@@ -43,6 +44,7 @@ public class RegisterPage extends BasePage {
 
     public RegisterPage(WebDriver driver) {
         super(driver);
+        waitForUrl(URL_PATH);
     }
 
     public RegisterPage fillRegisterForm(User user) {
@@ -55,7 +57,7 @@ public class RegisterPage extends BasePage {
         type(phoneField, user.phone());
         type(emailField, user.email());
         type(passwordField, user.password());
-        waitStreetFieldAutoFilling();
+        waitUntilHasValue(streetField);
         return this;
     }
 
@@ -66,9 +68,5 @@ public class RegisterPage extends BasePage {
 
     private void selectCountryByValue(String country) {
         new Select(clickable(countryDropdown)).selectByValue(country);
-    }
-
-    private void waitStreetFieldAutoFilling() {
-        wait.until(ExpectedConditions.attributeToBeNotEmpty(streetField, "value"));
     }
 }
