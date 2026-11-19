@@ -5,18 +5,21 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Select;
 
 import java.util.List;
-import java.util.Objects;
 
 public class HomePage extends BasePage {
     private static final String HOME_PAGE_URL = "https://practicesoftwaretesting.com/";
     private static final String ARIA_VALUE_NOW = "aria-valuenow";
     private static final By CHECKBOX_INPUT_BY = By.tagName("input");
+
     @FindBy(css = "select[data-test='sort']")
     private WebElement sortDropdown;
+
     @FindBy(css = ".ngx-slider-pointer-max")
     private WebElement maxSliderPoint;
+
     @FindBy(xpath = "//fieldset[legend='Categories']//div[contains(@class, 'checkbox')]")
     private List<WebElement> categoryCheckBoxList;
+
     @FindBy(css = "[data-test='filter_completed'] a[data-test^='product-'] h5")
     private List<WebElement> filteredProductItemList;
 
@@ -68,7 +71,7 @@ public class HomePage extends BasePage {
         return this;
     }
 
-    public ProductPage openProduct(String productName) {
+    public ProductPage clickProduct(String productName) {
         findElementByTextInList(filteredProductItemList, productName).click();
         return new ProductPage(driver);
     }
@@ -88,10 +91,7 @@ public class HomePage extends BasePage {
     }
 
     private int getIntDomAttribute(WebElement element, String name) {
-        String attributeValue = Objects.requireNonNull(
-                element.getDomAttribute(name),
-                "Attribute '%s' not found".formatted(name));
-        return Integer.parseInt(attributeValue);
+        return Integer.parseInt(getDomAttributeValue(element, name));
     }
 
     private WebElement findElementByTextInList(List<WebElement> list, String text) {

@@ -31,7 +31,7 @@ public class ThorHammerLimitTest extends BaseTest {
                 "%s is not in the filtered list: %s".formatted(THOR_HAMMER_NAME, filteredItemList)
         );
 
-        ProductPage productPage = homePage.openProduct(THOR_HAMMER_NAME);
+        ProductPage productPage = homePage.clickProduct(THOR_HAMMER_NAME);
 
         String toastMessage = productPage
                 .setQuantity(ITEM_QUANTITY)
@@ -41,7 +41,7 @@ public class ThorHammerLimitTest extends BaseTest {
 
         assertEquals(toastMessage, TOAST_LIMIT_MESSAGE);
 
-        boolean isCartIconPresent = productPage.header().isCartIconPresent();
+        boolean isCartIconPresent = productPage.header().isCartNavPresent();
 
         assertFalse(isCartIconPresent, "Cart icon is shown, but Thor Hammer should not be added");
     }
