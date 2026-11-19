@@ -32,4 +32,8 @@ public abstract class BasePage {
     protected WebElement visible(WebElement element) {
         return wait.until(visibilityOf(element));
     }
+
+    protected void type(WebElement element, String text) {
+        clickable(element).sendKeys(text);
+    }
 }
