@@ -3,6 +3,7 @@ package com.epam.training.student_arkadii_ilinov.pages.component;
 import com.epam.training.student_arkadii_ilinov.pages.BasePage;
 import com.epam.training.student_arkadii_ilinov.pages.ContactPage;
 import com.epam.training.student_arkadii_ilinov.pages.LoginPage;
+import com.epam.training.student_arkadii_ilinov.pages.MessagesPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -21,6 +22,9 @@ public class Header extends BasePage {
 
     @FindBy(css = "a[data-test='nav-contact']")
     private WebElement contactNav;
+
+    @FindBy(css = "a[data-test='nav-my-messages']")
+    private WebElement myMessagesNav;
 
     public Header(WebDriver driver) {
         super(driver);
@@ -42,5 +46,15 @@ public class Header extends BasePage {
     public ContactPage clickContact() {
         clickable(contactNav).click();
         return new ContactPage(driver);
+    }
+
+    public Header clickUserMenu() {
+        clickable(userMenu).click();
+        return this;
+    }
+
+    public MessagesPage clickMyMessages() {
+        clickable(myMessagesNav).click();
+        return new MessagesPage(driver);
     }
 }
