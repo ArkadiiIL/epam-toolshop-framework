@@ -4,7 +4,9 @@ import com.epam.training.student_arkadii_ilinov.data.User;
 import com.epam.training.student_arkadii_ilinov.data.UserFactory;
 import com.epam.training.student_arkadii_ilinov.pages.AccountPage;
 import com.epam.training.student_arkadii_ilinov.pages.HomePage;
+import com.epam.training.student_arkadii_ilinov.pages.LoginPage;
 import com.epam.training.student_arkadii_ilinov.pages.ProfilePage;
+import com.epam.training.student_arkadii_ilinov.steps.UserSteps;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
@@ -15,15 +17,9 @@ public class RegistrationTest extends BaseTest {
     public void testRegistration() {
         User user = UserFactory.createNewUser();
         String expectedUsername = "%s %s".formatted(user.firstName(), user.lastName());
-        AccountPage accountPage = new HomePage(driver)
-                .open()
-                .header()
-                .clickSignIn()
-                .clickRegisterLink()
-                .fillRegisterForm(user)
-                .clickRegisterButton()
-                .fillLoginForm(user.email(), user.password())
-                .clickLoginButton();
+        LoginPage loginPage = new HomePage(driver).open().header().clickSignIn();
+        loginPage = UserSteps.register(loginPage, user);
+        AccountPage accountPage = UserSteps.login(loginPage, user);
         String actualUsername = accountPage.header().getUserName();
 
         assertEquals(actualUsername, expectedUsername);

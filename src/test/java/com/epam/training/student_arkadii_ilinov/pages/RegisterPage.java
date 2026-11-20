@@ -7,7 +7,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Select;
 
 public class RegisterPage extends BasePage {
-    private static final String URL_PATH = "auth/register";
+    private static final String URL_PATH = "/auth/register";
 
     @FindBy(id = "first_name")
     private WebElement firstNameField;

@@ -4,7 +4,11 @@ import com.epam.training.student_arkadii_ilinov.util.RandomGeneratorUtil;
 
 import java.time.LocalDate;
 
-public class UserFactory {
+public final class UserFactory {
+
+    private UserFactory() {
+    }
+
     public static User createNewUser() {
         return new User(
                 "TestName",

@@ -1,12 +1,15 @@
 package com.epam.training.student_arkadii_ilinov.pages;
 
 import com.epam.training.student_arkadii_ilinov.pages.component.Header;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.List;
 import java.util.Objects;
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.*;
@@ -54,5 +57,43 @@ public abstract class BasePage {
 
     protected void waitUntilHasValue(WebElement element) {
         wait.until(attributeToBeNotEmpty(element, "value"));
+    }
+
+    protected String waitForText(WebElement element) {
+        try {
+            return wait.until(ignored -> {
+                String text = element.getText().strip();
+                return text.isEmpty() ? null : text;
+            });
+        } catch (TimeoutException e) {
+            throw new NoSuchElementException("Text not found", e);
+        }
+    }
+
+    protected List<String> waitForTexts(List<WebElement> elements, String errorMessage) {
+        try {
+            return wait.until(ignored -> {
+                        List<String> list = elements.stream()
+                                .map(WebElement::getText)
+                                .map(String::strip)
+                                .toList();
+                        return list.isEmpty() ? null : list;
+                    }
+            );
+        } catch (TimeoutException e) {
+            throw new NoSuchElementException(errorMessage, e);
+        }
+    }
+
+    protected WebElement findElementByTextInList(List<WebElement> list, String text) {
+        try {
+            return wait.until(ignored ->
+                    list.stream()
+                            .filter(element -> element.getText().strip().equals(text))
+                            .findFirst()
+                            .orElse(null));
+        } catch (TimeoutException e) {
+            throw new NoSuchElementException("Element with text '%s' not found!".formatted(text), e);
+        }
     }
 }

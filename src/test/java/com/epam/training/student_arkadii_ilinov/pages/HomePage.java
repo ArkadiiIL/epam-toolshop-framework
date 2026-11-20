@@ -21,7 +21,7 @@ public class HomePage extends BasePage {
     private List<WebElement> categoryCheckBoxList;
 
     @FindBy(css = "[data-test='filter_completed'] a[data-test^='product-'] h5")
-    private List<WebElement> filteredProductItemList;
+    private List<WebElement> filteredProductNames;
 
     public HomePage(WebDriver driver) {
         super(driver);
@@ -72,37 +72,15 @@ public class HomePage extends BasePage {
     }
 
     public ProductPage clickProduct(String productName) {
-        findElementByTextInList(filteredProductItemList, productName).click();
+        findElementByTextInList(filteredProductNames, productName).click();
         return new ProductPage(driver);
     }
 
-    public List<String> filteredProductNames() {
-        try {
-            return wait.until(ignored -> {
-                        List<String> list = filteredProductItemList.stream()
-                                .map(WebElement::getText)
-                                .toList();
-                        return list.isEmpty() ? null : list;
-                    }
-            );
-        } catch (TimeoutException e) {
-            throw new NoSuchElementException("No products found after filtering", e);
-        }
+    public List<String> getFilteredProductNames() {
+        return waitForTexts(filteredProductNames, "No products found after filtering");
     }
 
     private int getIntDomAttribute(WebElement element, String name) {
         return Integer.parseInt(getDomAttributeValue(element, name));
-    }
-
-    private WebElement findElementByTextInList(List<WebElement> list, String text) {
-        try {
-            return wait.until(ignored ->
-                    list.stream()
-                            .filter(element -> element.getText().strip().equals(text))
-                            .findFirst()
-                            .orElse(null));
-        } catch (TimeoutException e) {
-            throw new NoSuchElementException("Element with text '%s' not found!".formatted(text), e);
-        }
     }
 }
