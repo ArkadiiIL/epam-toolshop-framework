@@ -1,6 +1,7 @@
 package com.epam.training.student_arkadii_ilinov.pages.component;
 
 import com.epam.training.student_arkadii_ilinov.pages.BasePage;
+import com.epam.training.student_arkadii_ilinov.pages.ContactPage;
 import com.epam.training.student_arkadii_ilinov.pages.LoginPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -18,6 +19,9 @@ public class Header extends BasePage {
     @FindBy(id = "menu")
     private WebElement userMenu;
 
+    @FindBy(css = "a[data-test='nav-contact']")
+    private WebElement contactNav;
+
     public Header(WebDriver driver) {
         super(driver);
     }
@@ -33,5 +37,10 @@ public class Header extends BasePage {
 
     public String getUserName() {
         return visible(userMenu).getText().strip();
+    }
+
+    public ContactPage clickContact() {
+        clickable(contactNav).click();
+        return new ContactPage(driver);
     }
 }
