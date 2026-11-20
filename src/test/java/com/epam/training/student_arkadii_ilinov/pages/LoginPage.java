@@ -5,7 +5,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 public class LoginPage extends BasePage {
-    private static final String URL_PATH = "auth/login";
+    private static final String URL_PATH = "/auth/login";
 
     @FindBy(id = "email")
     private WebElement emailInputField;

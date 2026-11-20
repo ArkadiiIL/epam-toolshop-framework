@@ -19,6 +19,4 @@ public class AccountPage extends BasePage {
         clickable(profileNav).click();
         return new ProfilePage(driver);
     }
-
-
 }

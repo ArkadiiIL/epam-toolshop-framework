@@ -24,7 +24,7 @@ public class ThorHammerLimitTest extends BaseTest {
                 .sortBy(NAME_DESC_OPTION)
                 .setMaxPrice(MAX_PRICE)
                 .setCategorySelected(HAMMER_CATEGORY_NAME, true)
-                .filteredProductNames();
+                .getFilteredProductNames();
 
         assertTrue(
                 filteredItemList.contains(THOR_HAMMER_NAME),
@@ -38,11 +38,10 @@ public class ThorHammerLimitTest extends BaseTest {
                 .addToCart()
                 .getToastMessage();
 
-
         assertEquals(toastMessage, TOAST_LIMIT_MESSAGE);
 
-        boolean isCartIconPresent = productPage.header().isCartNavPresent();
+        boolean isCartNavPresent = productPage.header().isCartNavPresent();
 
-        assertFalse(isCartIconPresent, "Cart icon is shown, but Thor Hammer should not be added");
+        assertFalse(isCartNavPresent, "Cart icon is shown, but Thor Hammer should not be added");
     }
 }

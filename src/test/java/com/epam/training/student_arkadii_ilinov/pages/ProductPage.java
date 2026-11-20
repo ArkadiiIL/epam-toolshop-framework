@@ -16,7 +16,7 @@ public class ProductPage extends BasePage {
     private WebElement addToCartButton;
 
     @FindBy(css = "div[role='alert'].toast-message")
-    private WebElement toastWindow;
+    private WebElement toastMessage;
 
     public ProductPage(WebDriver driver) {
         super(driver);
@@ -36,6 +36,6 @@ public class ProductPage extends BasePage {
     }
 
     public String getToastMessage() {
-       return visible(toastWindow).getText().strip();
+        return visible(toastMessage).getText().strip();
     }
 }
