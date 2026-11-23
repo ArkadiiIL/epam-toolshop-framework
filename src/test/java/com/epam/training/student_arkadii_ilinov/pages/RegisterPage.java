@@ -4,7 +4,6 @@ import com.epam.training.student_arkadii_ilinov.data.User;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.Select;
 
 public class RegisterPage extends BasePage {
     private static final String URL_PATH = "/auth/register";
@@ -51,7 +50,7 @@ public class RegisterPage extends BasePage {
         type(firstNameField, user.firstName());
         type(lastNameField, user.lastName());
         type(dateOfBirthField, user.dateOfBirth().toString());
-        selectCountryByValue(user.country());
+        selectByValue(countryDropdown, user.country());
         type(postalCodeField, user.postalCode());
         type(houseNumberField, user.houseNumber());
         type(phoneField, user.phone());
@@ -64,9 +63,5 @@ public class RegisterPage extends BasePage {
     public LoginPage clickRegisterButton() {
         clickable(registerButton).click();
         return new LoginPage(driver);
-    }
-
-    private void selectCountryByValue(String country) {
-        new Select(clickable(countryDropdown)).selectByValue(country);
     }
 }

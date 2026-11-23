@@ -3,7 +3,6 @@ package com.epam.training.student_arkadii_ilinov.pages;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.Select;
 
 public class ContactPage extends BasePage {
     private static final String URL_PATH = "/contact";
@@ -26,7 +25,7 @@ public class ContactPage extends BasePage {
     }
 
     public ContactPage selectSubject(String subject) {
-        new Select(clickable(subjectDropdown)).selectByValue(subject);
+        selectByValue(subjectDropdown, subject);
         return this;
     }
 
