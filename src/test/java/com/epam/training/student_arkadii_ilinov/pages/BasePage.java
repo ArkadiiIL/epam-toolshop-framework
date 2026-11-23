@@ -6,6 +6,7 @@ import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
@@ -95,5 +96,9 @@ public abstract class BasePage {
         } catch (TimeoutException e) {
             throw new NoSuchElementException("Element with text '%s' not found!".formatted(text), e);
         }
+    }
+
+    protected void selectByValue(WebElement element, String value) {
+        new Select(clickable(element)).selectByValue(value);
     }
 }

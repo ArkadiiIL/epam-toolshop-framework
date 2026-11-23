@@ -33,7 +33,7 @@ public class HomePage extends BasePage {
     }
 
     public HomePage sortBy(String sortOption) {
-        new Select(clickable(sortDropdown)).selectByValue(sortOption);
+        selectByValue(sortDropdown, sortOption);
         return this;
     }
 
