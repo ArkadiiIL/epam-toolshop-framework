@@ -1,7 +1,7 @@
 # WebDriverToolShopTest
 
-Study WebDriver test framework for https://practicesoftwaretesting.com/ site.
-EPAM Automated Testing in Java course task.
+Test automation framework for https://practicesoftwaretesting.com/ (Toolshop).
+EPAM Automated Testing in Java course task. Based on my previous WebDriver task.
 
 ## Run
 
