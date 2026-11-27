@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.epam.training.student_arkadii_ilinov</groupId>
-    <artifactId>epam-webdriver-toolshop-tests</artifactId>
+    <artifactId>epam-toolshop-framework</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <properties>
